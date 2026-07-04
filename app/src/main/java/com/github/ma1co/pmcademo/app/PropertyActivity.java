@@ -25,18 +25,18 @@ public class PropertyActivity extends BaseActivity {
     }
 
     protected PropertyListItem properties[] = {
-        new PropertyListItem(R.string.type, getDeviceInfo().isCamera() ? "Camera" : "Other"),
-        new PropertyListItem(R.string.brand, getDeviceInfo().getBrand()),
-        new PropertyListItem(R.string.model, getDeviceInfo().getModel()),
-        new PropertyListItem(R.string.category, getDeviceInfo().getCategory().toString()),
-        new PropertyListItem(R.string.productCode, getDeviceInfo().getProductCode()),
-        new PropertyListItem(R.string.serial, getDeviceInfo().getSerialNumber()),
-        new PropertyListItem(R.string.firmwareVersion, getDeviceInfo().getFirmwareVersion()),
-        new PropertyListItem(R.string.hardwareVersion, Integer.toString(getDeviceInfo().getHardwareVersion())),
-        new PropertyListItem(R.string.apiVersion, Integer.toString(getDeviceInfo().getApiVersion())),
-        new PropertyListItem(R.string.androidVersion, getDeviceInfo().getAndroidVersion()),
-        new PropertyListItem(R.string.androidSdk, Integer.toString(getDeviceInfo().getAndroidSdkVersion())),
-        new PropertyListItem(R.string.androidIncremental, getDeviceInfo().getAndroidIncrementalVersion()),
+            new PropertyListItem(R.string.type, getDeviceInfo().isCamera() ? "Camera" : "Other"),
+            new PropertyListItem(R.string.brand, getDeviceInfo().getBrand()),
+            new PropertyListItem(R.string.model, getDeviceInfo().getModel()),
+            new PropertyListItem(R.string.category, getDeviceInfo().getCategory().toString()),
+            new PropertyListItem(R.string.productCode, getDeviceInfo().getProductCode()),
+            new PropertyListItem(R.string.serial, getDeviceInfo().getSerialNumber()),
+            new PropertyListItem(R.string.firmwareVersion, getDeviceInfo().getFirmwareVersion()),
+            new PropertyListItem(R.string.hardwareVersion, Integer.toString(getDeviceInfo().getHardwareVersion())),
+            new PropertyListItem(R.string.apiVersion, Integer.toString(getDeviceInfo().getApiVersion())),
+            new PropertyListItem(R.string.androidVersion, getDeviceInfo().getAndroidVersion()),
+            new PropertyListItem(R.string.androidSdk, Integer.toString(getDeviceInfo().getAndroidSdkVersion())),
+            new PropertyListItem(R.string.androidIncremental, getDeviceInfo().getAndroidIncrementalVersion()),
     };
 
     @Override

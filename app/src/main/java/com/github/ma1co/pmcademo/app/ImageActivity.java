@@ -3,6 +3,7 @@ package com.github.ma1co.pmcademo.app;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
 import com.github.ma1co.openmemories.framework.ImageInfo;
 import com.github.ma1co.openmemories.framework.MediaManager;
 

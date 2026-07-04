@@ -15,7 +15,8 @@ public class AppNotificationManager {
 
     private ArrayList<NotificationListener> listeners = new ArrayList<NotificationListener>();
 
-    private AppNotificationManager() {}
+    private AppNotificationManager() {
+    }
 
     public void notify(String message) {
         for (NotificationListener listener : listeners)

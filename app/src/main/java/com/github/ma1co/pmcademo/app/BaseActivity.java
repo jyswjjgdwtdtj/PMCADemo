@@ -3,6 +3,7 @@ package com.github.ma1co.pmcademo.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.KeyEvent;
+
 import com.github.ma1co.openmemories.framework.DateTime;
 import com.github.ma1co.openmemories.framework.DeviceInfo;
 import com.github.ma1co.openmemories.framework.DisplayManager;
@@ -140,41 +141,134 @@ public class BaseActivity extends Activity implements DisplayManager.Listener {
         return ScalarInput.getKeyStatus(key).status;
     }
 
-    protected boolean onUpKeyDown() { return false; }
-    protected boolean onUpKeyUp() { return false; }
-    protected boolean onDownKeyDown() { return false; }
-    protected boolean onDownKeyUp() { return false; }
-    protected boolean onLeftKeyDown() { return false; }
-    protected boolean onLeftKeyUp() { return false; }
-    protected boolean onRightKeyDown() { return false; }
-    protected boolean onRightKeyUp() { return false; }
-    protected boolean onEnterKeyDown() { return false; }
-    protected boolean onEnterKeyUp() { return false; }
-    protected boolean onFnKeyDown() { return false; }
-    protected boolean onFnKeyUp() { return false; }
-    protected boolean onAelKeyDown() { return false; }
-    protected boolean onAelKeyUp() { return false; }
-    protected boolean onMenuKeyDown() { return false; }
-    protected boolean onMenuKeyUp() { return false; }
-    protected boolean onFocusKeyDown() { return false; }
-    protected boolean onFocusKeyUp() { return false; }
-    protected boolean onShutterKeyDown() { return false; }
-    protected boolean onShutterKeyUp() { return false; }
-    protected boolean onPlayKeyDown() { return false; }
-    protected boolean onPlayKeyUp() { return false; }
-    protected boolean onMovieKeyDown() { return false; }
-    protected boolean onMovieKeyUp() { return false; }
-    protected boolean onC1KeyDown() { return false; }
-    protected boolean onC1KeyUp() { return false; }
-    protected boolean onLensAttached() { return false; }
-    protected boolean onLensDetached() { return false; }
-    protected boolean onUpperDialChanged(int value) { return false; }
-    protected boolean onLowerDialChanged(int value) { return false; }
-    protected boolean onModeDialChanged(int value) { return false; }
+    protected boolean onUpKeyDown() {
+        return false;
+    }
+
+    protected boolean onUpKeyUp() {
+        return false;
+    }
+
+    protected boolean onDownKeyDown() {
+        return false;
+    }
+
+    protected boolean onDownKeyUp() {
+        return false;
+    }
+
+    protected boolean onLeftKeyDown() {
+        return false;
+    }
+
+    protected boolean onLeftKeyUp() {
+        return false;
+    }
+
+    protected boolean onRightKeyDown() {
+        return false;
+    }
+
+    protected boolean onRightKeyUp() {
+        return false;
+    }
+
+    protected boolean onEnterKeyDown() {
+        return false;
+    }
+
+    protected boolean onEnterKeyUp() {
+        return false;
+    }
+
+    protected boolean onFnKeyDown() {
+        return false;
+    }
+
+    protected boolean onFnKeyUp() {
+        return false;
+    }
+
+    protected boolean onAelKeyDown() {
+        return false;
+    }
+
+    protected boolean onAelKeyUp() {
+        return false;
+    }
+
+    protected boolean onMenuKeyDown() {
+        return false;
+    }
+
+    protected boolean onMenuKeyUp() {
+        return false;
+    }
+
+    protected boolean onFocusKeyDown() {
+        return false;
+    }
+
+    protected boolean onFocusKeyUp() {
+        return false;
+    }
+
+    protected boolean onShutterKeyDown() {
+        return false;
+    }
+
+    protected boolean onShutterKeyUp() {
+        return false;
+    }
+
+    protected boolean onPlayKeyDown() {
+        return false;
+    }
+
+    protected boolean onPlayKeyUp() {
+        return false;
+    }
+
+    protected boolean onMovieKeyDown() {
+        return false;
+    }
+
+    protected boolean onMovieKeyUp() {
+        return false;
+    }
+
+    protected boolean onC1KeyDown() {
+        return false;
+    }
+
+    protected boolean onC1KeyUp() {
+        return false;
+    }
+
+    protected boolean onLensAttached() {
+        return false;
+    }
+
+    protected boolean onLensDetached() {
+        return false;
+    }
+
+    protected boolean onUpperDialChanged(int value) {
+        return false;
+    }
+
+    protected boolean onLowerDialChanged(int value) {
+        return false;
+    }
+
+    protected boolean onModeDialChanged(int value) {
+        return false;
+    }
 
     protected boolean onDeleteKeyDown() {
         return true;
     }
+
     protected boolean onDeleteKeyUp() {
         onBackPressed();
         return true;

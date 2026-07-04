@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+
 import com.github.ma1co.openmemories.framework.ImageInfo;
 import com.github.ma1co.openmemories.framework.MediaManager;
 

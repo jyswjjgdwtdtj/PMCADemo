@@ -66,7 +66,8 @@ public class WifiActivity extends BaseActivity {
         wifiManager.setWifiEnabled(true);
         try {
             httpServer.start();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         setAutoPowerOffMode(false);
     }
 

@@ -77,7 +77,8 @@ public class InstallActivity extends BaseActivity implements AdapterView.OnItemC
             setPermissions(tmpFile.getParentFile());
             copyFile(file, tmpFile);
             setPermissions(tmpFile);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(tmpFile), "application/vnd.android.package-archive");

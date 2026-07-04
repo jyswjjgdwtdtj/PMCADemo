@@ -3,15 +3,16 @@ package com.github.ma1co.pmcademo.app;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.widget.TextView;
+
 import com.github.ma1co.openmemories.framework.DisplayManager;
 
 import java.util.Arrays;
 
 public class DisplayActivity extends BaseActivity {
     private DisplayManager.Display displays[] = {
-        DisplayManager.Display.SCREEN,
-        DisplayManager.Display.FINDER,
-        DisplayManager.Display.NONE,
+            DisplayManager.Display.SCREEN,
+            DisplayManager.Display.FINDER,
+            DisplayManager.Display.NONE,
     };
 
     private TextView textView;
@@ -62,7 +63,7 @@ public class DisplayActivity extends BaseActivity {
     protected Point approxFraction(float n, int maxDenominator) {
         float bestError = 0;
         int bestDenominator = 0;
-        for (int i=1; i<=maxDenominator; i++) {
+        for (int i = 1; i <= maxDenominator; i++) {
             float error = Math.abs(n - 1f * Math.round(n * i) / i);
             if (error < bestError || i == 1) {
                 bestError = error;

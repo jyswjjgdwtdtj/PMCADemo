@@ -7,11 +7,11 @@ public class LedActivity extends BaseActivity {
     private String cardLed = Light.LID_MEDIA_ACCS_MMC0;
 
     private String[] modes = {
-        Light.PTN_OFF,
-        Light.PTN_SLOW,
-        Light.PTN_MIDDLE,
-        Light.PTN_FAST,
-        Light.PTN_ON,
+            Light.PTN_OFF,
+            Light.PTN_SLOW,
+            Light.PTN_MIDDLE,
+            Light.PTN_FAST,
+            Light.PTN_ON,
     };
     private int currentMode = 0;
 

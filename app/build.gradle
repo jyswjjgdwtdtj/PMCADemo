@@ -1,32 +1,58 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 10
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.github.ma1co.pmcademo.app"
         minSdkVersion 10
-        targetSdkVersion 10
+        targetSdkVersion 28
         versionCode "git -C ${projectDir} rev-list --first-parent --count HEAD".execute().text.trim().toInteger()
         versionName "git -C ${projectDir} describe --always --tags --dirty".execute().text.trim().replaceAll("^v", "")
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // Load keystore properties from keystore.properties at project root (create from keystore.properties)
+    def keystorePropsFile = rootProject.file("keystore.properties")
+    def keystoreProps = new Properties()
+    if (keystorePropsFile.exists()) {
+        keystoreProps.load(new FileInputStream(keystorePropsFile))
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                // Resolve storeFile relative to project root so "keystore.jks" points to project root, not module dir
+                storeFile keystoreProps['storeFile'] ? rootProject.file(keystoreProps['storeFile']) : null
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 }
 
-android.applicationVariants.all { variant ->
-    variant.outputs.each { output ->
-        def apkName = "PMCADemo-${output.baseName}-${variant.versionName}.apk"
-        output.outputFile = new File(output.outputFile.parent, apkName)
+android.applicationVariants.all {
+    variant -> variant.outputs.all {
+        output ->
+            def apkName = "PMCADemo-${variant.name}-${variant.versionName}.apk"
+            output.outputFileName = apkName
     }
 }
 
 dependencies {
-    compile 'com.github.ma1co.OpenMemories-Framework:framework:-SNAPSHOT'
-    provided 'com.github.ma1co.OpenMemories-Framework:stubs:-SNAPSHOT'
-    compile 'com.nanohttpd:nanohttpd:2.1.1'
+    implementation 'com.github.ma1co.OpenMemories-Framework:framework:-SNAPSHOT'
+    compileOnly 'com.github.ma1co.OpenMemories-Framework:stubs:-SNAPSHOT'
+    implementation 'com.nanohttpd:nanohttpd:2.1.1'
 }

@@ -3,6 +3,7 @@ package com.github.ma1co.pmcademo.app;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 import com.sony.scalar.hardware.CameraEx;
 
 import java.io.IOException;
@@ -41,14 +42,17 @@ public class CameraActivity extends BaseActivity implements SurfaceHolder.Callba
         try {
             camera.getNormalCamera().setPreviewDisplay(holder);
             camera.getNormalCamera().startPreview();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {}
+    public void surfaceDestroyed(SurfaceHolder holder) {
+    }
 
     @Override
     protected boolean onFocusKeyDown() {

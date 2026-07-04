@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 public class ListAdapter<T extends ListAdapter.ListItem> extends ArrayAdapter<T> {
     public static class ListItem {
-        public String getText1() { return ""; }
-        public String getText2() { return ""; }
+        public String getText1() {
+            return "";
+        }
+
+        public String getText2() {
+            return "";
+        }
     }
 
     public ListAdapter(Context context, T[] objects) {

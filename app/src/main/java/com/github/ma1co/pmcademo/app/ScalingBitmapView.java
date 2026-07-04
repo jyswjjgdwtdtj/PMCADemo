@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
 import com.github.ma1co.openmemories.framework.DisplayManager;
 
 public class ScalingBitmapView extends ImageView implements AppNotificationManager.NotificationListener {

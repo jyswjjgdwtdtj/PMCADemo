@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.widget.TextView;
+
 import com.sony.wifi.direct.DirectConfiguration;
 import com.sony.wifi.direct.DirectManager;
 
@@ -95,7 +96,8 @@ public class WifiDirectActivity extends BaseActivity {
         wifiDirectManager.setDirectEnabled(true);
         try {
             httpServer.start();
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         setAutoPowerOffMode(false);
     }
 
