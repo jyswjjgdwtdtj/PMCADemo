@@ -12,8 +12,10 @@ public class WifiSettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        wifiManager.setWifiEnabled(true);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager != null) {
+            wifiManager.setWifiEnabled(true);
+        }
     }
 
     @Override

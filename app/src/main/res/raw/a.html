@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Poll /b and play shutter</title>
+        <style>
+            body { font-family: Arial, Helvetica, sans-serif; padding: 24px; }
+            .status { margin-top: 12px; }
+            button { padding: 8px 12px; font-size: 16px; }
+            .good { color: green; }
+            .bad { color: red; }
+        </style>
+    </head>
+    <body>
+        <h1>/b 轮询并播放 /shutter.mp3</h1>
+        <p>此页面会持续轮询 <code>/b</code>。当返回值为 true 时播放 <code>/shutter.mp3</code>，为 false 时停止播放。</p>
+
+        <div>
+            <button id="enableAudio">启用音频（需要用户交互以允许播放）</button>
+            <label style="margin-left:12px">轮询间隔(ms): <input id="interval" type="number" value="1000" min="200" style="width:100px"></label>
+        </div>
+
+        <div class="status">
+            <div>当前 /b 返回: <span id="bValue">—</span></div>
+            <div>播放状态: <span id="playState">未播放</span></div>
+            <div>最近错误: <span id="lastError">无</span></div>
+        </div>
+
+        <!-- 音频元素（静默加载，等待用户允许播放） -->
+        <audio id="shutter" src="/shutter.mp3" preload="auto" loop></audio>
+
+        <script>
+            // 元素
+            const enableBtn = document.getElementById('enableAudio');
+            const bValueEl = document.getElementById('bValue');
+            const playStateEl = document.getElementById('playState');
+            const lastErrorEl = document.getElementById('lastError');
+            const intervalInput = document.getElementById('interval');
+            const audio = document.getElementById('shutter');
+
+            let audioEnabled = false;
+            let playing = false;
+            let stoppedByUser = false;
+
+            enableBtn.addEventListener('click', async () => {
+              try {
+                // 试图在用户交互下解锁播放权限
+                await audio.play().catch(() => {});
+                audio.pause();
+                audio.currentTime = 0;
+                audioEnabled = true;
+                enableBtn.textContent = '音频已启用';
+                enableBtn.disabled = true;
+              } catch (err) {
+                console.warn('启用音频失败', err);
+              }
+            });
+
+            function setPlayState(p) {
+              playing = p;
+              playStateEl.textContent = p ? '播放中' : '已停止';
+              playStateEl.className = p ? 'good' : 'bad';
+            }
+
+            function parseBoolResponse(text, res) {
+              // 尝试解析为 JSON，然后回退到文本比较
+              try {
+                const j = JSON.parse(text);
+                if (typeof j === 'boolean') return j;
+                // 如果返回对象包裹布尔值（例如 {value:true} ）尝试找到首个布尔字段
+                if (j && typeof j === 'object') {
+                  for (const k in j) {
+                    if (typeof j[k] === 'boolean') return j[k];
+                  }
+                }
+              } catch (e) {
+                // 忽略 JSON 解析错误
+              }
+              const t = text.trim().toLowerCase();
+              if (t === 'true' || t === '1' || t === 'yes') return true;
+              if (t === 'false' || t === '0' || t === 'no') return false;
+              // 如果响应状态码能代表成功/失败，也可视作布尔
+              if (res && typeof res.ok === 'boolean') return res.ok;
+              // 无法判断，返回 null 表示未识别
+              return null;
+            }
+
+            async function handleValue(val) {
+              if (val === true) {
+                bValueEl.textContent = 'true';
+                try {
+                  // 只有在浏览器允许音频时才尝试播放
+                  if (audioEnabled) {
+                    await audio.play();
+                    setPlayState(true);
+                  } else {
+                    // 尝试播放但捕获异常（可能被浏览器阻止）
+                    audio.play().then(() => setPlayState(true)).catch(() => setPlayState(false));
+                  }
+                } catch (err) {
+                  console.warn('播放失败', err);
+                  lastErrorEl.textContent = '播放错误: ' + err.message;
+                  setPlayState(false);
+                }
+              } else if (val === false) {
+                bValueEl.textContent = 'false';
+                if (!audio.paused) {
+                  audio.pause();
+                  audio.currentTime = 0;
+                }
+                setPlayState(false);
+              } else {
+                bValueEl.textContent = '未知: ' + String(val);
+                // 未识别的值，默认停止
+                if (!audio.paused) {
+                  audio.pause();
+                  audio.currentTime = 0;
+                }
+                setPlayState(false);
+              }
+            }
+
+            async function pollOnce() {
+              const interval = Math.max(200, Number(intervalInput.value) || 1000);
+              try {
+                const res = await fetch('/b', {cache: 'no-cache'});
+                const text = await res.text();
+                const val = parseBoolResponse(text, res);
+                await handleValue(val);
+                lastErrorEl.textContent = '无';
+              } catch (err) {
+                console.error('轮询 /b 出错', err);
+                lastErrorEl.textContent = String(err.message || err);
+                // 出错时也停止播放以防万一
+                if (!audio.paused) {
+                  audio.pause();
+                  audio.currentTime = 0;
+                }
+                setPlayState(false);
+              } finally {
+                // 下次轮询
+                setTimeout(pollOnce, Math.max(200, Number(intervalInput.value) || 1000));
+              }
+            }
+
+            // 启动轮询
+            pollOnce();
+        </script>
+    </body>
+</html>

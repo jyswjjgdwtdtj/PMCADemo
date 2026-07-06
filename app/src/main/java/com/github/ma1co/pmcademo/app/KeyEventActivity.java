@@ -4,14 +4,24 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.github.ma1co.openmemories.framework.DateTime;
+import com.sony.scalar.hardware.CameraEx;
+
 public class KeyEventActivity extends BaseActivity {
     private TextView textView;
-
+    private CameraEx cameraEx;
+    @Override
+    protected void onPause(){
+        super.onPause();
+        cameraEx.release();
+        cameraEx = null;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log);
 
+        cameraEx = CameraEx.open(0, null);
         textView = (TextView) findViewById(R.id.logView);
     }
 
@@ -76,10 +86,12 @@ public class KeyEventActivity extends BaseActivity {
     }
 
     protected boolean onEnterKeyDown() {
+        cameraEx.startAutoZoom();
         return logKey(true, "enter");
     }
 
     protected boolean onEnterKeyUp() {
+        cameraEx.stopAutoZoom();
         return logKey(false, "enter");
     }
 
